@@ -8,6 +8,7 @@ import { MenuModule } from './menu/menu.module';
 import { PagesModule } from './pages/pages.module';
 import { PostsModule } from './posts/posts.module';
 import { SystemModule } from './system/system.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { SystemModule } from './system/system.module';
     PagesModule,
     MenuModule,
     SystemModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
