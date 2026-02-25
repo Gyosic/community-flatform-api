@@ -9,12 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { CreatePageDto, UpdatePageDto } from './dto/create-page.dto';
 import { PagesService } from './pages.service';
 
 @ApiTags('Pages')
-@Controller('pages')
+@Controller('/api/pages')
 export class PagesController {
   constructor(private readonly pagesService: PagesService) {}
 

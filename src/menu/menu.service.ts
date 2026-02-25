@@ -10,8 +10,9 @@ export class MenuService {
   constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
   async findOne() {
-    const [row] = await this.db.select().from(schema.menu).limit(1);
-    return row || null;
+    const rows = await this.db.select().from(schema.menu).limit(1);
+    const [row = null] = rows;
+    return row;
   }
 
   async create(dto: CreateMenuDto) {

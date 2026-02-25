@@ -7,10 +7,10 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import {
   type LoginDto,
   type SignupDto,
@@ -18,13 +18,15 @@ import {
   signupSchema,
 } from 'src/common/zod/user';
 import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe';
+import { LoginSwaggerDto, SignupSwaggerDto } from '../common/swagger/auth.dto';
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: '로그인' })
+  @ApiBody({ type: LoginSwaggerDto })
   @UsePipes(new ZodValidationPipe(loginSchema))
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
@@ -32,6 +34,7 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: '회원가입' })
+  @ApiBody({ type: SignupSwaggerDto })
   @UsePipes(new ZodValidationPipe(signupSchema))
   @Post('register')
   async register(@Body() signupDto: SignupDto) {

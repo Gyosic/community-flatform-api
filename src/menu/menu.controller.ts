@@ -1,18 +1,19 @@
 import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto';
 import { MenuService } from './menu.service';
 
 @ApiTags('Menu')
-@Controller('menu')
+@Controller('/api/menu')
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @ApiOperation({ summary: '메뉴 조회' })
   @Get()
   async findOne() {
-    return this.menuService.findOne();
+    const data = await this.menuService.findOne();
+    return { data };
   }
 
   @ApiOperation({ summary: '메뉴 생성' })
