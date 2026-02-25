@@ -7,9 +7,7 @@ import { CreateMenuDto, UpdateMenuDto } from './dto/menu.dto';
 
 @Injectable()
 export class MenuService {
-  constructor(
-    @Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
   async findOne() {
     const [row] = await this.db.select().from(schema.menu).limit(1);

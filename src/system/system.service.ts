@@ -14,9 +14,7 @@ import { CreateAdminDto, SiteConfigDto } from './dto/system.dto';
 
 @Injectable()
 export class SystemService {
-  constructor(
-    @Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
   async getConfig() {
     const [row] = await this.db.select().from(schema.siteSettings).limit(1);
@@ -81,7 +79,9 @@ export class SystemService {
   async createAdmin(requesterId: string, dto: CreateAdminDto) {
     const isAdmin = await this.isSystemAdmin(requesterId);
     if (!isAdmin) {
-      throw new ForbiddenException('Only system admin can create admin account');
+      throw new ForbiddenException(
+        'Only system admin can create admin account',
+      );
     }
 
     const adminExists = await this.adminExists();
@@ -132,7 +132,9 @@ export class SystemService {
   async deleteAdmin(requesterId: string) {
     const isAdmin = await this.isSystemAdmin(requesterId);
     if (!isAdmin) {
-      throw new ForbiddenException('Only system admin can delete admin account');
+      throw new ForbiddenException(
+        'Only system admin can delete admin account',
+      );
     }
 
     const adminRole = await this.getRoleByName('admin');

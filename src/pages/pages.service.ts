@@ -6,7 +6,8 @@ import * as schema from '../database/schema';
 import { CreatePageDto, UpdatePageDto } from './dto/create-page.dto';
 
 function generateSlug(type: string): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let guid = '';
   for (let i = 0; i < 11; i++) {
     guid += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -16,9 +17,7 @@ function generateSlug(type: string): string {
 
 @Injectable()
 export class PagesService {
-  constructor(
-    @Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
   async findAll() {
     return this.db.select().from(schema.pages);
@@ -49,9 +48,10 @@ export class PagesService {
         slug,
         description: dto.description ?? null,
         parent_id: dto.parent_id ?? null,
-        config: dto.config as typeof schema.pages.$inferInsert['config'],
-        display_config: dto.display_config as typeof schema.pages.$inferInsert['display_config'],
-        layout: dto.layout as typeof schema.pages.$inferInsert['layout'],
+        config: dto.config as (typeof schema.pages.$inferInsert)['config'],
+        display_config:
+          dto.display_config as (typeof schema.pages.$inferInsert)['display_config'],
+        layout: dto.layout as (typeof schema.pages.$inferInsert)['layout'],
       })
       .returning();
 
@@ -70,7 +70,8 @@ export class PagesService {
     if (dto.description !== undefined) updateData.description = dto.description;
     if (dto.parent_id !== undefined) updateData.parent_id = dto.parent_id;
     if (dto.config !== undefined) updateData.config = dto.config;
-    if (dto.display_config !== undefined) updateData.display_config = dto.display_config;
+    if (dto.display_config !== undefined)
+      updateData.display_config = dto.display_config;
     if (dto.layout !== undefined) updateData.layout = dto.layout;
 
     const [page] = await this.db

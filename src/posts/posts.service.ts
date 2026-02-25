@@ -13,9 +13,7 @@ type PostColumn = keyof typeof postColumns;
 
 @Injectable()
 export class PostsService {
-  constructor(
-    @Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>,
-  ) {}
+  constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
   async findAll(dto: GetPostsDto) {
     const { sorts, from, size, board_type, title, user_name } = dto;
