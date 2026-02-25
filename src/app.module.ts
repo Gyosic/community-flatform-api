@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { validate } from './config/env.validation';
 import { DatabaseModule } from './database/database.module';
 import { MenuModule } from './menu/menu.module';
 import { PagesModule } from './pages/pages.module';
@@ -15,6 +16,7 @@ import { UploadModule } from './upload/upload.module';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+      validate,
     }),
     DatabaseModule,
     AuthModule,
