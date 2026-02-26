@@ -114,6 +114,39 @@ npm run test:e2e
 | GET    | `/menu`          | 메뉴 목록         |      |
 | GET    | `/system`        | 시스템 설정 조회  |      |
 
+## SMTP 환경변수 설정 (Gmail)
+
+### 1. Gmail 앱 비밀번호 발급
+
+Gmail은 일반 비밀번호로 SMTP 로그인이 불가하므로 **앱 비밀번호**가 필요합니다.
+
+1. [Google 계정 보안](https://myaccount.google.com/security)에서 **2단계 인증** 활성화
+2. [앱 비밀번호](https://myaccount.google.com/apppasswords) 페이지 접속
+3. 앱 이름 입력 (예: `cafe-service`) 후 만들기
+4. 생성된 16자리 비밀번호를 복사
+
+### 2. .env 설정
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your@gmail.com
+SMTP_PASSWORD=abcd efgh ijkl mnop
+SMTP_FROM="카페서비스 <your@gmail.com>"
+EMAIL_VERIFY_TTL=86400
+BASEURL=http://localhost:4000
+```
+
+| 변수 | 설명 |
+|---|---|
+| `SMTP_HOST` | SMTP 서버 주소 |
+| `SMTP_PORT` | SMTP 포트 (Gmail TLS: `587`) |
+| `SMTP_USER` | Gmail 계정 |
+| `SMTP_PASSWORD` | 위에서 발급한 앱 비밀번호 (16자리) |
+| `SMTP_FROM` | 발신자 표시 이름 및 이메일 |
+| `EMAIL_VERIFY_TTL` | 인증 토큰 만료 시간 (초, 기본 86400 = 24시간) |
+| `BASEURL` | 인증 링크에 사용할 서버 주소 |
+
 ## 배포
 
 ### Docker

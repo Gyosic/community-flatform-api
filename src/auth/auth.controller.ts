@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   Request,
   UseGuards,
   UsePipes,
@@ -36,9 +37,15 @@ export class AuthController {
   @ApiOperation({ summary: '회원가입' })
   @ApiBody({ type: SignupSwaggerDto })
   @UsePipes(new ZodValidationPipe(signupSchema))
-  @Post('register')
-  async register(@Body() signupDto: SignupDto) {
-    return this.authService.register(signupDto);
+  @Post('signup')
+  async signup(@Body() signupDto: SignupDto) {
+    return this.authService.signup(signupDto);
+  }
+
+  @ApiOperation({ summary: '이메일 인증' })
+  @Get('verify-email')
+  async verifyEmail(@Query('token') token: string) {
+    return this.authService.verifyEmail(token);
   }
 
   @ApiOperation({ summary: '내 정보 조회' })

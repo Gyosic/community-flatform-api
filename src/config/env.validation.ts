@@ -5,13 +5,13 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
 
   // Redis (required)
-  REDIS_URL: z.string().min(1).optional(),
+  REDIS_URL: z.string().min(1),
 
   // Application
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
-  PORT: z.coerce.number().default(3000),
+  PORT: z.coerce.number().default(4000),
 
   // Auth (required)
   SYSADMIN_EMAIL: z.string().min(1),
@@ -30,6 +30,7 @@ const envSchema = z.object({
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
   SMTP_FROM: z.string().optional(),
+  REDIRECT_URL: z.string().optional(),
   OPENAI_API_KEY: z.string().optional(),
   AI_ENABLED: z.preprocess(
     (v) => (v === undefined ? 'false' : v),
