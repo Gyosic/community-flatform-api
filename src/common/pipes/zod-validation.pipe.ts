@@ -5,15 +5,17 @@ export class ZodValidationPipe implements PipeTransform {
   constructor(private schema: z.ZodSchema) {}
 
   transform(value: unknown) {
-    try {
-      const parsedValue = this.schema.parse(value);
+    const result = this.schema.safeParse(value);
 
-      return parsedValue;
-    } catch (error) {
-      const errorMessage =
-        error instanceof z.ZodError ? error?.message : 'Validation failed';
+    if (!result.success) {
+      const errors = result.error.issues.map((e) => ({
+        field: e.path.join('.'),
+        message: e.message,
+      }));
 
-      throw new BadRequestException(errorMessage);
+      throw new BadRequestException({ message: '입력값 검증 실패', errors });
     }
+
+    return result.data;
   }
 }

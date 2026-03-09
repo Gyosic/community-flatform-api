@@ -17,7 +17,7 @@ const envSchema = z.object({
   SYSADMIN_EMAIL: z.string().min(1),
   SYSADMIN_NAME: z.string().min(1),
   SYSADMIN_PASSWORD: z.string().min(1),
-  AUTH_SECRET: z.string().min(1),
+  JWT_SECRET: z.string().min(1),
 
   // File Upload (required)
   MAX_FILE_SIZE: z.coerce.number().positive(),
