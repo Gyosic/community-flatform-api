@@ -12,6 +12,8 @@ import { PagesModule } from './pages/pages.module';
 import { PostsModule } from './posts/posts.module';
 import { SystemModule } from './system/system.module';
 import { UploadModule } from './upload/upload.module';
+import { UsersModule } from './users/users.module';
+import { FileModule } from './files/file.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { UploadModule } from './upload/upload.module';
     SystemModule,
     UploadModule,
     MailModule,
+    UsersModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

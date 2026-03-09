@@ -6,6 +6,7 @@ export const loginSchema = z.object({
 });
 
 export type LoginDto = z.infer<typeof loginSchema>;
+
 export const passwordRegex =
   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[#?!@$%^&*-])[^\s]{9,}$/;
 
@@ -23,3 +24,10 @@ export const signupSchema = z.object({
 });
 
 export type SignupDto = z.infer<typeof signupSchema>;
+
+export const profileSchema = z.object({
+  name: z.string('필수입력값 입니다.').max(20, '표시이름은 최대 20글자입니다'),
+  id: z.string('필수입력값 입니다.'),
+});
+
+export type ProfileDto = z.infer<typeof profileSchema>;

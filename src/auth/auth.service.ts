@@ -151,12 +151,11 @@ export class AuthService {
     }
 
     return {
-      user: {
-        id: user.users.id,
-        email: user.users.email,
-        name: user.users.name,
-        role: user.roles?.name,
-      },
+      id: user.users.id,
+      email: user.users.email,
+      name: user.users.name,
+      image: user.users.image,
+      role: user.roles?.name,
     };
   }
 }
